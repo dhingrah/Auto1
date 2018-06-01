@@ -69,8 +69,22 @@ public class Auto1 {
 	}
         
   @Test
-  public void verifyPriceOrder(){ 
-        
+  public void verifyPriceOrder() throws InterruptedException{ 
+        Thread.sleep(3000);
+	 driver.findElement(By.xpath(".//span[text()='Niedrigster Preis']")).click(); 
+	  Thread.sleep(2000);
+	  List<WebElement> filter = driver.findElements(By.cssSelector(".option___2yqJT>span"));
+             for (int j=0; j<filter.size(); j++){
+             if(filter.get(j).getText().equals("Höchster Preis")){
+                    Thread.sleep(3000);
+                    filter.get(j).click();
+                    Thread.sleep(3000);
+                    break;
+             }
+             }
+	  
+	  
+	  Thread.sleep(3000);
         List<WebElement> priceele = new LinkedList<WebElement>();
         
         		
@@ -85,6 +99,7 @@ public class Auto1 {
             prices1.add(price);
             System.out.println(price);
         }
+	Collections.sort(prices1);
         Collections.reverse(prices1);
         boolean result1=prices.equals(prices1);
         Assert.assertTrue(result1, "prices are in decending order");
